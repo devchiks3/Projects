@@ -1,133 +1,60 @@
-const draggable_list = document.getElementById("draggable-list");
-const check = document.getElementById("check");
+const increaseButtonE1 = document.querySelector('.counter__button--increase');
+const decreaseButtonE1 = document.querySelector('.counter__button--decrease');
+const resetButtonE1 = document.querySelector(".counter__reset-button");
+const counterValueE1 = document.querySelector(".counter__value");
 
-const richestPeople = [
-    "Elon Musk",
-    "Larry Page",
-    "Sergey Brin",
-    "Jeff Bezos",
-    "Mark Zuckerberg",
-    "Larry Ellison",
-    "Jensen Huang",
-    "Bernard Arnault",
-    "Rob Walton",
-    "Warren Buffett"
-];
+// Reset
+resetButtonE1.addEventListener("click", function () {
+    counterValueE1.textContent = 0;
+});
 
-const listItems = [];
-let dragStartIndex;
+// Decrease
+decreaseButtonE1.addEventListener("click", function () {
+    const currentValue = counterValueE1.textContent;
+    const currentValueAsNumber = +currentValue;
+    let newValue = currentValueAsNumber - 1;
 
-createList();
-
-function createList(){
-
-    const randomPeople = [...richestPeople]
-        .sort(() => Math.random() - 0.5);
-
-    randomPeople.forEach((person, index) => {
-
-        const listItem = document.createElement("li");
-
-        listItem.setAttribute("data-index", index);
-
-        listItem.innerHTML = `
-        <span class="number">${index + 1}</span>
-        <div class="draggable" draggable="true">
-            <p class="person-name">${person}</p>
-            <i class="fa-solid fa-grip-lines"></i>
-        </div>
-        `;
-
-        listItems.push(listItem);
-        draggable_list.appendChild(listItem);
-
-    });
-
-    addEventListener();
-}
-
-function dragStart(){
-    dragStartIndex = Number(this.closest("li").dataset.index);
-}
-
-function dragEnter(){
-    this.classList.add("over");
-}
-
-function dragLeave(){
-    this.classList.remove("over");
-}
-
-function dragOver(e){
-    e.preventDefault();
-}
-
-function dragDrop(){
-
-    const dragEndIndex = Number(this.dataset.index);
-
-    swapItems(dragStartIndex, dragEndIndex);
-
-    this.classList.remove("over");
-}
-
-function swapItems(fromIndex, toIndex){
-
-    const draggedItem = listItems[fromIndex].querySelector(".draggable");
-
-    if(fromIndex < toIndex){
-
-        for(let i = fromIndex; i < toIndex; i++){
-            const next = listItems[i + 1].querySelector(".draggable");
-            listItems[i].appendChild(next);
-        }
-
-    } else {
-
-        for(let i = fromIndex; i > toIndex; i--){
-            const previous = listItems[i - 1].querySelector(".draggable");
-            listItems[i].appendChild(previous);
-        }
-
+    if (newValue < 0) {
+        newValue = 0;
     }
 
-    listItems[toIndex].appendChild(draggedItem);
-}
+    counterValueE1.textContent = newValue;
+});
 
-function checkOrder(){
+// Increase
+increaseButtonE1.addEventListener("click", function () {
+    const currentValue = counterValueE1.textContent;
+    const currentValueAsNumber = +currentValue;
+    let newValue = currentValueAsNumber + 1;
 
-    listItems.forEach((listItem, index) => {
+    if (newValue > 5) {
+        newValue = 5;
+    }
 
-        const personName = listItem.querySelector(".person-name").innerText;
+    counterValueE1.textContent = newValue;
+});
 
-        if(personName !== richestPeople[index]){
-            listItem.classList.add("wrong");
-        } else {
-            listItem.classList.remove("wrong");
-            listItem.classList.add("right");
-        }
 
-    });
-}
+// ✅ KEYBOARD CONTROL ADDED HERE
+document.addEventListener("keydown", function (e) {
+    
+    // prevent page scrolling
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.preventDefault();
+    }
 
-function addEventListener(){
+    // Increase (↑)
+    if (e.key === "ArrowUp") {
+        increaseButtonE1.click();
+    }
 
-    const draggables = document.querySelectorAll(".draggable");
-    const dragListItems = document.querySelectorAll(".draggable-list li");
+    // Decrease (↓)
+    if (e.key === "ArrowDown") {
+        decreaseButtonE1.click();
+    }
 
-    draggables.forEach(item => {
-        item.addEventListener("dragstart", dragStart);
-    });
-
-    dragListItems.forEach(item => {
-
-        item.addEventListener("dragover", dragOver);
-        item.addEventListener("drop", dragDrop);
-        item.addEventListener("dragenter", dragEnter);
-        item.addEventListener("dragleave", dragLeave);
-
-    });
-
-}
-
-check.addEventListener("click", checkOrder);
+    // Reset (R key)
+    if (e.key.toLowerCase() === "r") {
+        resetButtonE1.click();
+    }
+});

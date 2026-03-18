@@ -1,80 +1,110 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-:root{
-    --border-color:#e3e5e4;
-    --background-color:#c3c7ca;
-    --text-color:#34444f;
-}
-
 *{
+    margin:0 ;
+    padding: 0;
     box-sizing: border-box;
 }
 body{
-    background-color: #fff;
+    font-family: "Inter", sans-serif;
+    height: 100vh;
+    background-image: radial-gradient(ellipse, #385300, #212900) ;
+    display: flex;
+    justify-content:center ;
+    align-items: center;
+}
+button{
+    all: unset;
+}
+.counter{
+    background-color: #bef227;
+    width: 476px;
+    height: 615px;
+    border-radius: 12px;
+    box-shadow: 0 25px 121px rgba(0, 0, 0, 0.5) ;
     display: flex;
     flex-direction: column;
-    align-items:center;
-    justify-content: flex-start;
-    height: 100vh;
-    margin: 0;
-    font-family: "lato",sans-serif;
-}
-.draggable-list{
-     border: 1px solid var(--border-color);
-     color:var(--text-color);
-     padding: 0;
-     list-style-type: none;
-}
-.draggable-list li {
-background-color: #fff;
-display: flex;
-flex: 1;
-}
-.draggable-list li:not(:last-of-type){
-    border-bottom: 1px solid var(--border-color);
-}
-.draggable-list .number{
-    background-color: var(--background-color);
-    display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    height: 60px;
-    width: 60px;
+}
+.counter__value{
+    color: #1d2507;
+    font-size: 200px;
+    font-weight: 600;
+    margin-top: 10px;
 
 }
-.draggable-list li.over .draggable{
-    background-color: #eaeaea;
+.counter__title{
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 200px;
+    text-align: center;
+    line-height: 0.9;
+    font-weight: 500;
+    font-size: 32px;
+    margin-top: 60px ;
 }
-.draggable-list .person-name{
-    margin:0 20px 0 0 ;
-}
-
-.draggable-list li.right .person-name{
-    color: #3ae374;
-}
-.draggable-list li.wrong .person-name{
-    color: #ff3838;
-}
-.draggable{
+.counter__reset-button{
     cursor: pointer;
+
+}
+.counter__reset-icon{
+    opacity: 0.3;
+    font-size: 35px;
+    transition: all 0.4s;
+    
+}
+.counter__reset-icon:hover{
+    opacity: 0.5;
+}
+.counter__buttons{
+    background-color: #1d2507;
+    height: 116px;
+    width: 100%;
+    margin-top: auto;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius:10px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
+
+
+    
+}
+.counter__button--decrease{
+    
+}
+.counter__button--increase{
+    border-left: 1px solid rgba(189, 254, 0, 0.15);
+    
+}
+.counter__icon{
+    color: #bef227;
+    opacity: 0.9;
+    font-size: 40px;
+
+}
+.counter__icon--minus{
+    
+}
+.counter__icon--plus{
+    
+}
+.counter__button{
     flex: 1;
-}
-
-.check-btn{
-    background-color: var(--background-color);
-    border: none;
-    color: var(--text-color);
-    font-size: 16px;
-    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    transition: all 0.4s;
+
 }
-.check-btn:active{
-    transform: scale(0.9);
+.counter__button:hover{
+    background-color: #212b06;
 }
-.check-btn:focus{
-    outline:none ;
+/*@media (max-width:680px){
+    .counter{
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+    .counter__title{
+
+    }
 }
