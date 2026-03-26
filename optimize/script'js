@@ -1,0 +1,30 @@
+const increaseBtn = document.querySelector('.counter__button--increase');
+const decreaseBtn = document.querySelector('.counter__button--decrease');
+const resetBtn = document.querySelector('.counter__reset-button');
+const counterValue = document.querySelector('.counter__value');
+
+const MIN = 0;
+const MAX = 5;
+
+
+const getValue = () => Number(counterValue.textContent);
+
+
+const setValue = (value) => {
+    counterValue.textContent = value;
+};
+
+
+const updateValue = (delta) => {
+    let newValue = getValue() + delta;
+
+    if (newValue < MIN) newValue = MIN;
+    if (newValue > MAX) newValue = MAX;
+
+    setValue(newValue);
+};
+
+
+increaseBtn.addEventListener("click", () => updateValue(1));
+decreaseBtn.addEventListener("click", () => updateValue(-1));
+resetBtn.addEventListener("click", () => setValue(0));
